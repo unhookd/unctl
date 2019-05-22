@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unhookd
+  labels:
+    app: unhookd
+spec:
+  replicas: {{ .replicaCount }}
+  template:
+    metadata:
+      name: unhookd
+      labels:
+        app: unhookd
+    spec:
+      containers:
+        - name: unhookd
+          image: {{ .image.repository }}:{{ .image.tag }}
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: unhookd
