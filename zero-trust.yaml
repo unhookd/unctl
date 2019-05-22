@@ -1,6 +1,22 @@
 ---
 contexts:
+  "this-a-example/github-repo-name":
+    - "ci/circleci: example-required-build-step-to-be-green"
 
 endpoints:
+  example-this-is-dev: https://this-is-a-uniq-url-in-this-hash/maybe-extra-secret-bits-here-not-needed-though
 
 deployments:
+  example-app:
+    alpha-dev:
+      release: name-of-thing-when-you-helm-ls
+      namespace: namespace-you-want-the-deployment-to-be-in
+      repo: this-a-example/github-repo-name
+      cluster: example-this-is-dev
+      branch: what-branch-is-the-one-thats-checked-for-green-head-in-circle-ci-checks
+      chart: chart-repo/chart-name
+      version: 0.0
+      notifications:
+        - provider: slack
+          channel: "#what-channel"
+          text: "what message would be awsome to support golang teplate for details like {{ .Release.sha }} {{ .Release.helm_output }} {{ .OtherStuff }}"
