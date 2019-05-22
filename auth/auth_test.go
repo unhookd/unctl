@@ -2,7 +2,7 @@ package auth
 
 import (
 	"testing"
-	"github.com/org/unhookd/lookup"
+	"github.com/org/unhookd/config"
 )
 
 func TestGetHeadSha(t *testing.T) {

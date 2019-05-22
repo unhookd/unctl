@@ -1,11 +1,8 @@
-package lookup
+package config
 
 import (
-	"encoding/base64"
 	"fmt"
-	"github.com/go-yaml/yaml"
 	"github.com/spf13/cobra"
-	"log"
 )
 
 var GlobalLookups Config
@@ -38,27 +35,28 @@ type Config struct {
 	Deployments DeploymentsTable
 }
 
-func init() {
-	if len(EncodedConfigLookup) == 0 {
-		log.Fatalf("missing lookup, ensure bin is built with proper ldflag")
-	}
-
-	decoded, err := base64.StdEncoding.DecodeString(EncodedConfigLookup)
-	if err != nil {
-		log.Fatalf("decode error: %v", err)
-	}
-
-	err = yaml.Unmarshal([]byte(decoded), &GlobalLookups)
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
-}
+// Probably don't need this anymore
+//func init() {
+//	if len(EncodedConfigLookup) == 0 {
+//		log.Fatalf("missing config, ensure bin is built with proper ldflag")
+//	}
+//
+//	decoded, err := base64.StdEncoding.DecodeString(EncodedConfigLookup)
+//	if err != nil {
+//		log.Fatalf("decode error: %v", err)
+//	}
+//
+//	err = yaml.Unmarshal([]byte(decoded), &GlobalLookups)
+//	if err != nil {
+//		log.Fatalf("error: %v", err)
+//	}
+//}
 
 var CmdDebugLookup = &cobra.Command{
-	Use:   "lookup [project] [release]",
+	Use:   "config [project] [release]",
 	Short: "Shows information about a release",
 	Long: `
-		Prints information about the lookup config table
+		Prints information about the config config table
 	`,
 	Args: cobra.MinimumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {

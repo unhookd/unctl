@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/org/unhookd/lookup"
+	"github.com/org/unhookd/config"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func NotifyCommunicationChannel(notificationConfiguration lookup.NotificationsTable) {
+func NotifyCommunicationChannel(notificationConfiguration config.NotificationsTable) {
 	if notificationConfiguration["provider"] == "slack" {
 		slack_api_url := GetEnv("SLACK_API_URL", "https://hooks.slack.com/services/")
 		sn, message, responseBody := notifySlack(slack_api_url, notificationConfiguration["channel"], notificationConfiguration["text"])

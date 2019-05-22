@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/google/go-github/github"
+	"github.com/org/unhookd/config"
+	"github.com/org/unhookd/lib"
+	"golang.org/x/oauth2"
 	"os"
 	"regexp"
 	"strings"
-	"github.com/google/go-github/github"
-	"github.com/org/unhookd/lib"
-	"github.com/org/unhookd/lookup"
-	"golang.org/x/oauth2"
 )
 
 
@@ -70,7 +70,7 @@ func ValidateStatusChecks(orgRepo, branch, headSha string, client *github.Client
 
 	var required_contexts []string
 	var ok bool
-	if required_contexts, ok = lookup.GlobalLookups.Contexts[orgRepo]; !ok {
+	if required_contexts, ok = config.GlobalLookups.Contexts[orgRepo]; !ok {
 		return errors.New(fmt.Sprintf("Unable to locate required_contexts: %s", orgRepo))
 	}
 

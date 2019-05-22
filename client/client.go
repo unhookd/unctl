@@ -2,7 +2,6 @@ package client
 
 import (
 	"fmt"
-	"github.com/org/unhookd/lookup"
 	"io/ioutil"
 	"log"
 	"net/http"

@@ -8,7 +8,6 @@ import (
 	"github.com/org/unhookd/auth"
 	"github.com/org/unhookd/helm"
 	"github.com/org/unhookd/lib"
-	"github.com/org/unhookd/lookup"
 )
 
 func ZeroTrustServer(runHelm bool) *http.Server {
