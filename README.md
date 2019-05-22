@@ -5,7 +5,6 @@ UnhookD is a release controller designed for safe integration with external depl
 ## Usage
 ### Server commands
 ```
-/usr/bin/unhookd instastage-server # Runs unhookd in insecure legacy instastage mode
 /usr/bin/unhookd zero-trust-server # Runs unhookd in secure zero-trust model mode
 ```
 
@@ -16,10 +15,10 @@ UnhookD is a release controller designed for safe integration with external depl
 ```
 
 ## Deploying an application with Unhookd
-Unhookd accepts deploy requests in two modes: zero trust and instastage.
+Unhookd accepts deploy requests in zero trust mode, see [ZERO_TRUST_MODE.md](./ZERO_TRUST_MODE.md)  
 
 ### Zero Trust Mode
-In instastage mode, Unhookd will relay a request to deploy a given `$project` & `$release` at a given `$sha`. Zero trust mode should be used for environments such as production and staging.
+Zero trust mode should be used for environments such as production and staging.
 
 See [ZERO_TRUST_MODE.md](./ZERO_TRUST_MODE.md) for more information on how to configure an application to deploy with zero trust.
 
