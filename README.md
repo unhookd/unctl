@@ -23,11 +23,6 @@ In instastage mode, Unhookd will relay a request to deploy a given `$project` & 
 
 See [ZERO_TRUST_MODE.md](./ZERO_TRUST_MODE.md) for more information on how to configure an application to deploy with zero trust.
 
-### Instastage mode
-In instastage mode, Unhookd will blindly deploy a given helm chart with provided values. This mode is used for instastage and one off deployments.
-
-See [INSTASTAGE_MODE.md](./INSTASTAGE_MODE.md) for more information on how to configure an application to deploy with instastage.
-
 ## Developing
 See [DEVELOPING.md](./DEVELOPING.md) for more information on how to develop on Unhookd.
 
