@@ -25,18 +25,6 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 }
 
-var CmdInstastageServer = &cobra.Command{
-	Use:   "instastage-server",
-	Short: "Runs unhookd in insecure legacy instastage mode",
-	Long: `
-	  insecure legacy instastage mode allows for more direct manipulation of the values passed to a particular chart
-	`,
-	Args: cobra.MinimumNArgs(0),
-	Run: func(cmd *cobra.Command, args []string) {
-		instastageServer(true)
-	},
-}
-
 var CmdZeroTrustServer = &cobra.Command{
 	Use:   "zero-trust-server",
 	Short: "Runs unhookd in secure zero-trust model mode",
