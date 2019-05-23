@@ -114,7 +114,7 @@ func ZeroTrustServerHandler(w http.ResponseWriter, request *http.Request) {
 }
 
 func GetShaToDeploy(repo string, branch string, desiredSha string) (sha string, err error) {
-	githubClient := auth.BuildGithubClient()
+	githubClient := auth.BuildGithubClientFromEnv()
 
 	headSha, validationError := auth.GetHeadSha(repo, branch, githubClient)
 	if validationError != nil {

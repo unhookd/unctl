@@ -14,23 +14,24 @@ import (
 )
 
 
-
-func BuildGithubClient() (client *github.Client) {
+func BuildGithubClient(accessToken string) (client *github.Client) {
 	ctx := context.Background()
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: accessToken},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+	client = github.NewClient(tc)
+	return client
+}
+
+func BuildGithubClientFromEnv() (client *github.Client) {
 	githubAccessToken := os.Getenv("GITHUB_ACCESS_TOKEN")
 
 	if githubAccessToken == "" {
 		panic(errors.New("No GITHUB_ACCESS_TOKEN env"))
 	}
 
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: githubAccessToken},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	client = github.NewClient(tc)
-
-	return client
+	return BuildGithubClient(githubAccessToken)
 }
 
 func ValidateShasMatch(headSha string, sha string) (err error) {

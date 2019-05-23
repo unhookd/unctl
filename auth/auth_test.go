@@ -13,7 +13,7 @@ func TestGetHeadSha(t *testing.T) {
 			branch = lookedupRelease.Branch
 		}
 	}
-	client := BuildGithubClient()
+	client := BuildGithubClientFromEnv()
 	sha, _ := GetHeadSha(repo, branch, client)
 
 	if len(sha) == 0 {

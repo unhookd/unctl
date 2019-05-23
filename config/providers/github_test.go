@@ -1,17 +1,21 @@
 package providers
 
-import "testing"
-import "github.com/org/unhookd/auth"
+import (
+	"github.com/org/unhookd/auth"
+	"testing"
+)
 
 func TestGithubConfig(t *testing.T) {
-	client := auth.BuildGithubClient()
+	//c66ce44344a130c9d513321219a0d120e44afdeb
+
+	client := auth.BuildGithubClientFromEnv()
 
 	var configProvider = Github{
 		Client: *client,
 		Owner: "unhookd",
-		Repo: "test",
+		Repo: "test-config-store",
 		Ref: "master",
-		Path: "test.config",
+		Path: "config-test.yaml",
 	}
 	var config = configProvider.GetConfig()
 	if(len(config.Deployments) == 0) {
