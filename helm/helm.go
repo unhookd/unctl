@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/org/unhookd/lib"
+	"github.com/unhookd/unctl/lib"
 )
 
 var usrBinHelm string

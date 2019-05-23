@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/org/unhookd/client"
-	"github.com/org/unhookd/server"
-	"github.com/org/unhookd/lookup"
+	"github.com/unhookd/unctl/client"
+	"github.com/unhookd/unctl/server"
+	"github.com/unhookd/unctl/lookup"
 	"github.com/spf13/cobra"
 )
 

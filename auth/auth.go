@@ -8,8 +8,8 @@ import (
 	"regexp"
 	"strings"
 	"github.com/google/go-github/github"
-	"github.com/org/unhookd/lib"
-	"github.com/org/unhookd/lookup"
+	"github.com/unhookd/unctl/lib"
+	"github.com/unhookd/unctl/lookup"
 	"golang.org/x/oauth2"
 )
 
