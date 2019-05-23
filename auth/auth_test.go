@@ -7,7 +7,7 @@ import (
 
 func TestGetHeadSha(t *testing.T) {
 	repo, branch := "", ""
-	if lookedupProject, ok := lookup.GlobalLookups.Deployments["test"]; ok {
+	if lookedupProject, ok := config.GlobalLookups.Deployments["test"]; ok {
 		if lookedupRelease, ok := lookedupProject["test-deployment"]; ok {
 			repo = lookedupRelease.Repo
 			branch = lookedupRelease.Branch

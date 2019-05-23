@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"github.com/unhookd/unctl/config"
 	"net/http"
 	"time"
 
@@ -60,9 +61,9 @@ func ZeroTrustServerHandler(w http.ResponseWriter, request *http.Request) {
 
 	var effectiveRelease, effectiveNamespace, repo, branch, chart, version string
 
-	var notifications lookup.NotificationsLookup
+	var notifications config.NotificationsLookup
 
-	if lookedupProject, ok := lookup.GlobalLookups.Deployments[project]; ok {
+	if lookedupProject, ok := config.GlobalLookups.Deployments[project]; ok {
 		if lookedupRelease, ok := lookedupProject[release]; ok {
 			effectiveRelease = lookedupRelease.Release
 			effectiveNamespace = lookedupRelease.Namespace

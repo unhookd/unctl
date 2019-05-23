@@ -10,11 +10,11 @@ RUN ln -s /usr/local/bin/helm-v2.11.0 /usr/local/bin/helm
 COPY . .
 
 RUN GO111MODULE=on go test -v \
-    -ldflags "-X github.com/unhookd/unctl/lookup.EncodedConfigLookup=$(cat zero-trust-test.yaml | base64 -w0)" \
+    -ldflags "-X github.com/unhookd/unctl/config.EncodedConfigLookup=$(cat zero-trust-test.yaml | base64 -w0)" \
     ./...
 
 RUN GO111MODULE=on GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build \
-    -ldflags "-X github.com/unhookd/unctl/lookup.EncodedConfigLookup=$(cat zero-trust.yaml | base64 -w0)" \
+    -ldflags "-X github.com/unhookd/unctl/config.EncodedConfigLookup=$(cat zero-trust.yaml | base64 -w0)" \
     -o ./unhookd-linux-amd64 main.go
 
 FROM alpine:3.7
