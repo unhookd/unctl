@@ -13,7 +13,7 @@ import (
 
 func TestCmdZeroTrustServerWithSha(t *testing.T) {
 	helm.Setup(false)
-	config.CurrentProvider = config.FileConfigProvider{ Path: "../config/testdata/config-test.yaml" }
+	config.CurrentProvider = config.FileConfigProvider{Path: "../config/testdata/config-test.yaml"}
 	config.LoadConfig()
 
 	endpoint := "https://local.unhookd.org.net:4443/zero-trust"
@@ -41,7 +41,7 @@ func TestCmdZeroTrustServerWithSha(t *testing.T) {
 
 func TestCmdZeroTrustServerNoSha(t *testing.T) {
 	helm.Setup(false)
-	config.CurrentProvider = config.FileConfigProvider{ Path: "../config/testdata/config-test.yaml" }
+	config.CurrentProvider = config.FileConfigProvider{Path: "../config/testdata/config-test.yaml"}
 	config.LoadConfig()
 
 	endpoint := "https://local.unhookd.org.net:4443/zero-trust"

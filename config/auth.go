@@ -12,7 +12,6 @@ import (
 	"strings"
 )
 
-
 func BuildGithubClient(accessToken string) (client *github.Client) {
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(
@@ -47,7 +46,7 @@ func ValidateShasMatch(headSha string, sha string) (err error) {
 	return nil
 }
 
-func GetHeadSha(orgRepo, branch string, client *github.Client) (sha string, err error){
+func GetHeadSha(orgRepo, branch string, client *github.Client) (sha string, err error) {
 	var org, repo = splitOrgRepo(orgRepo)
 	headRef, _, err := client.Git.GetRef(context.Background(), org, repo, "refs/heads/"+branch)
 	if headRef == nil {
