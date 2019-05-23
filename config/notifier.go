@@ -1,8 +1,8 @@
-package lib
+package config
 
 import (
 	"fmt"
-	"github.com/unhookd/unctl/config"
+	"github.com/unhookd/unctl/lib"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,9 +10,9 @@ import (
 	"strings"
 )
 
-func NotifyCommunicationChannel(notificationConfiguration config.NotificationsTable) {
+func NotifyCommunicationChannel(notificationConfiguration NotificationsTable) {
 	if notificationConfiguration["provider"] == "slack" {
-		slack_api_url := GetEnv("SLACK_API_URL", "https://hooks.slack.com/services/")
+		slack_api_url := lib.GetEnv("SLACK_API_URL", "https://hooks.slack.com/services/")
 		sn, message, responseBody := notifySlack(slack_api_url, notificationConfiguration["channel"], notificationConfiguration["text"])
 		if !sn {
 			log.Printf("Slack Notification Failed ## Message: %s, Response: %s", message, responseBody)
@@ -28,7 +28,7 @@ func notifySlack(slack_api_url, channel, text string) (success bool, message, re
 	values := url.Values{}
 	values.Add("payload", message)
 
-	slack_secret := GetEnv("SLACK_SECRET_KEY", "foobar-baz")
+	slack_secret := lib.GetEnv("SLACK_SECRET_KEY", "foobar-baz")
 	endpoint := fmt.Sprintf("%s/%s", slack_api_url, slack_secret)
 	req, err := http.NewRequest("POST", endpoint, strings.NewReader(values.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")

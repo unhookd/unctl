@@ -108,21 +108,21 @@ func ZeroTrustServerHandler(w http.ResponseWriter, request *http.Request) {
 	fmt.Println("Notifying communication channels")
 	if shouldNotify {
 		for _, notificationConfigured := range notifications {
-			lib.NotifyCommunicationChannel(notificationConfigured)
+			config.NotifyCommunicationChannel(notificationConfigured)
 		}
 	}
 }
 
 func GetShaToDeploy(repo string, branch string, desiredSha string) (sha string, err error) {
-	githubClient := auth.BuildGithubClientFromEnv()
+	githubClient := config.BuildGithubClientFromEnv()
 
-	headSha, validationError := auth.GetHeadSha(repo, branch, githubClient)
+	headSha, validationError := config.GetHeadSha(repo, branch, githubClient)
 	if validationError != nil {
 		return "", validationError
 	}
 
 	if len(desiredSha) > 0 {
-		validationError = auth.ValidateShasMatch(headSha, desiredSha)
+		validationError = config.ValidateShasMatch(headSha, desiredSha)
 		if validationError != nil {
 			return "", validationError
 		}
