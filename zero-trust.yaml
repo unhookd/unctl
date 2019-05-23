@@ -9,12 +9,12 @@ endpoints:
 deployments:
   example-app:
     alpha-dev:
-      release: name-of-thing-when-you-helm-ls
-      namespace: namespace-you-want-the-deployment-to-be-in
-      repo: this-a-example/github-repo-name
-      cluster: example-this-is-dev
-      branch: what-branch-is-the-one-thats-checked-for-green-head-in-circle-ci-checks
-      chart: chart-repo/chart-name
+      release: testrepo
+      namespace: default
+      repo: armandocerna/testrepo
+      cluster: local
+      branch: master
+      chart: testrepo
       version: 0.0
       notifications:
         - provider: slack
