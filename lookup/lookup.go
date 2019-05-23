@@ -1,11 +1,15 @@
 package lookup
 
 import (
+	"encoding/base64"
 	"fmt"
+	"github.com/go-yaml/yaml"
 	"github.com/spf13/cobra"
+	"log"
 )
 
 var GlobalLookups Config
+var EncodedConfigLookup string
 
 type EndpointsTable map[string]string
 
@@ -32,6 +36,22 @@ type Config struct {
 	Contexts    ContextsTable
 	Endpoints   EndpointsTable
 	Deployments DeploymentsTable
+}
+
+func init() {
+	if len(EncodedConfigLookup) == 0 {
+		log.Fatalf("missing lookup, ensure bin is built with proper ldflag")
+	}
+
+	decoded, err := base64.StdEncoding.DecodeString(EncodedConfigLookup)
+	if err != nil {
+		log.Fatalf("decode error: %v", err)
+	}
+
+	err = yaml.Unmarshal([]byte(decoded), &GlobalLookups)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
 }
 
 var CmdDebugLookup = &cobra.Command{
