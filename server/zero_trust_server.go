@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/unhookd/unctl/auth"
 	"github.com/unhookd/unctl/helm"
 	"github.com/unhookd/unctl/lib"
 )
@@ -63,7 +62,7 @@ func ZeroTrustServerHandler(w http.ResponseWriter, request *http.Request) {
 
 	var notifications config.NotificationsLookup
 
-	if lookedupProject, ok := config.GlobalLookups.Deployments[project]; ok {
+	if lookedupProject, ok := config.Current.Deployments[project]; ok {
 		if lookedupRelease, ok := lookedupProject[release]; ok {
 			effectiveRelease = lookedupRelease.Release
 			effectiveNamespace = lookedupRelease.Namespace

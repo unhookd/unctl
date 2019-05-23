@@ -51,10 +51,10 @@ func getGithubArgs(args []string) (string, string, string) {
 func zeroTrustLookup(project string, release string) (string, string) {
 	var cluster, endpoint string
 
-	if lookedupProject, ok := config.GlobalLookups.Deployments[project]; ok {
+	if lookedupProject, ok := config.Current.Deployments[project]; ok {
 		if lookedupRelease, ok := lookedupProject[release]; ok {
 			cluster = lookedupRelease.Cluster
-			endpoint = config.GlobalLookups.Endpoints[cluster]
+			endpoint = config.Current.Endpoints[cluster]
 		}
 	}
 

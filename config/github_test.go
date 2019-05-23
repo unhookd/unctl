@@ -1,12 +1,11 @@
 package config
 
 import (
-	"github.com/unhookd/unctl/auth"
 	"testing"
 )
 
 func TestGithubConfigProvider(t *testing.T) {
-	client := auth.BuildGithubClientFromEnv()
+	client := BuildGithubClientFromEnv()
 
 	var configProvider = GithubConfigProvider{
 		Client: *client,

@@ -5,6 +5,7 @@ import (
 	"github.com/google/go-github/github"
 	"gopkg.in/yaml.v2"
 	"log"
+	"strings"
 )
 
 type GithubConfigProvider struct {
@@ -15,6 +16,22 @@ type GithubConfigProvider struct {
 	Path      string
 	config    Config
 	rawConfig string
+}
+
+func GetGithubProviderFromPath(client github.Client, fullPath string) GithubConfigProvider {
+	parts := strings.Split(fullPath, "/")
+	owner, parts := parts[0], parts[1:]
+	repo, parts := parts[0], parts[1:]
+	ref, parts := parts[0], parts[1:]
+	path := strings.Join(parts, "/")
+
+	return GithubConfigProvider{
+		Client: client,
+		Owner: owner,
+		Repo: repo,
+		Ref: ref,
+		Path: path,
+	}
 }
 
 func (provider GithubConfigProvider) GetConfig() Config {

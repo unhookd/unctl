@@ -1,13 +1,12 @@
-package auth
+package config
 
 import (
 	"testing"
-	"github.com/unhookd/unctl/config"
 )
 
 func TestGetHeadSha(t *testing.T) {
 	repo, branch := "", ""
-	if lookedupProject, ok := config.GlobalLookups.Deployments["test"]; ok {
+	if lookedupProject, ok := Current.Deployments["test"]; ok {
 		if lookedupRelease, ok := lookedupProject["test-deployment"]; ok {
 			repo = lookedupRelease.Repo
 			branch = lookedupRelease.Branch
