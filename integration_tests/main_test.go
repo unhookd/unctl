@@ -5,9 +5,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/org/unhookd/client"
-	"github.com/org/unhookd/helm"
-	"github.com/org/unhookd/server"
+	"github.com/unhookd/unctl/client"
+	"github.com/unhookd/unctl/helm"
+	"github.com/unhookd/unctl/server"
 )
 
 func TestCmdZeroTrustServerWithSha(t *testing.T) {
