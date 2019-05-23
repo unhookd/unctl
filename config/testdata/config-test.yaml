@@ -1,6 +1,6 @@
 ---
 contexts:
-  "org/kube-hello-world":
+  "unhookd/sample-app":
     - "ci/circleci: build"
 
 deployments:
@@ -8,7 +8,7 @@ deployments:
     test-deployment:
       release: kube-hello-world
       namespace: kube-hello-world
-      repo: org/kube-hello-world
+      repo: unhookd/sample-app
       cluster: local
       branch: master
-      chart: tests/chart
+      chart: sample-app

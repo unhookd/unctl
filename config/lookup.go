@@ -49,6 +49,10 @@ func init() {
 	}
 }
 
+func LoadConfig() {
+	Current = CurrentProvider.GetConfig()
+}
+
 var CmdDebugLookup = &cobra.Command{
 	Use:   "config [project] [release]",
 	Short: "Shows information about a release",

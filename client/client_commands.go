@@ -14,7 +14,7 @@ var CmdDeploy = &cobra.Command{
 	Long: `
 	  Given a [project] [release] and optional [sha], an HTTP request is made to the designated
 	  zero-trust-server endpoint, and a request to deploy is processed. If no sha is provided, 
-	  the head of the branch specified in the zero-trust.yaml will be deployed.
+	  the head of the branch specified in the config.yaml will be deployed.
 	`,
 	Args: cobra.MinimumNArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
