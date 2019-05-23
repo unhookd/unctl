@@ -43,9 +43,9 @@ func init() {
 		client := BuildGithubClientFromEnv()
 		CurrentProvider = GetGithubProviderFromPath(*client, os.Getenv("GITHUB_CONFIG_PATH"))
 	case "file":
-		CurrentProvider = FileConfigProvider{ Path: os.Getenv("CONFIG_FILE") }
+		CurrentProvider = FileConfigProvider{Path: os.Getenv("CONFIG_FILE")}
 	default:
-		CurrentProvider = FileConfigProvider{ Path: "config.yaml" }
+		CurrentProvider = FileConfigProvider{Path: "config.yaml"}
 	}
 }
 

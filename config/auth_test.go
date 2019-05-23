@@ -5,7 +5,7 @@ import (
 )
 
 func TestGetHeadSha(t *testing.T) {
-	CurrentProvider = FileConfigProvider{ Path: "./testdata/config-test.yaml" }
+	CurrentProvider = FileConfigProvider{Path: "./testdata/config-test.yaml"}
 	LoadConfig()
 
 	repo, branch := "", ""

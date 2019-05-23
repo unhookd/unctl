@@ -27,16 +27,16 @@ func GetGithubProviderFromPath(client github.Client, fullPath string) GithubConf
 
 	return GithubConfigProvider{
 		Client: client,
-		Owner: owner,
-		Repo: repo,
-		Ref: ref,
-		Path: path,
+		Owner:  owner,
+		Repo:   repo,
+		Ref:    ref,
+		Path:   path,
 	}
 }
 
 func (provider GithubConfigProvider) GetConfig() Config {
 	ctx := context.Background()
-	opts := &github.RepositoryContentGetOptions{ Ref: provider.Ref }
+	opts := &github.RepositoryContentGetOptions{Ref: provider.Ref}
 	file_content, _, _, err := provider.Client.Repositories.GetContents(ctx, provider.Owner, provider.Repo, provider.Path, opts)
 
 	if err != nil {
