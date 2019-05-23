@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: sample-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
