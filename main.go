@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/org/unhookd/client"
-	"github.com/org/unhookd/server"
+	"github.com/unhookd/unctl/client"
+	"github.com/unhookd/unctl/server"
 	"github.com/spf13/cobra"
 )
 

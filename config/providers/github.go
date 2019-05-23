@@ -3,7 +3,7 @@ package providers
 import (
 	"context"
 	"github.com/google/go-github/github"
-	"github.com/org/unhookd/config"
+	"github.com/unhookd/unctl/config"
 	"gopkg.in/yaml.v2"
 	"log"
 )

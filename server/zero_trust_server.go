@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/org/unhookd/auth"
-	"github.com/org/unhookd/helm"
-	"github.com/org/unhookd/lib"
+	"github.com/unhookd/unctl/auth"
+	"github.com/unhookd/unctl/helm"
+	"github.com/unhookd/unctl/lib"
 )
 
 func ZeroTrustServer(runHelm bool) *http.Server {

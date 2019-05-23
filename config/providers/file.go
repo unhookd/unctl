@@ -1,7 +1,7 @@
 package providers
 
 import (
-	"github.com/org/unhookd/config"
+	"github.com/unhookd/unctl/config"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"

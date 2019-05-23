@@ -2,7 +2,7 @@ package lib
 
 import (
 	"fmt"
-	"github.com/org/unhookd/config"
+	"github.com/unhookd/unctl/config"
 	"io/ioutil"
 	"log"
 	"net/http"
