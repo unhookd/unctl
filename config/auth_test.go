@@ -1,19 +1,21 @@
-package auth
+package config
 
 import (
 	"testing"
-	"github.com/unhookd/unctl/lookup"
 )
 
 func TestGetHeadSha(t *testing.T) {
+	CurrentProvider = FileConfigProvider{ Path: "./testdata/config-test.yaml" }
+	LoadConfig()
+
 	repo, branch := "", ""
-	if lookedupProject, ok := lookup.GlobalLookups.Deployments["test"]; ok {
+	if lookedupProject, ok := Current.Deployments["test"]; ok {
 		if lookedupRelease, ok := lookedupProject["test-deployment"]; ok {
 			repo = lookedupRelease.Repo
 			branch = lookedupRelease.Branch
 		}
 	}
-	client := BuildGithubClient()
+	client := BuildGithubClientFromEnv()
 	sha, _ := GetHeadSha(repo, branch, client)
 
 	if len(sha) == 0 {

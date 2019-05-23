@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"github.com/unhookd/unctl/lookup"
+	"github.com/unhookd/unctl/config"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -51,10 +51,10 @@ func getGithubArgs(args []string) (string, string, string) {
 func zeroTrustLookup(project string, release string) (string, string) {
 	var cluster, endpoint string
 
-	if lookedupProject, ok := lookup.GlobalLookups.Deployments[project]; ok {
+	if lookedupProject, ok := config.Current.Deployments[project]; ok {
 		if lookedupRelease, ok := lookedupProject[release]; ok {
 			cluster = lookedupRelease.Cluster
-			endpoint = lookup.GlobalLookups.Endpoints[cluster]
+			endpoint = config.Current.Endpoints[cluster]
 		}
 	}
 

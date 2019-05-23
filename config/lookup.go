@@ -1,15 +1,13 @@
-package lookup
+package config
 
 import (
-	"encoding/base64"
 	"fmt"
-	"github.com/go-yaml/yaml"
 	"github.com/spf13/cobra"
-	"log"
+	"os"
 )
 
-var GlobalLookups Config
-var EncodedConfigLookup string
+var Current Config
+var CurrentProvider ProviderInterface
 
 type EndpointsTable map[string]string
 
@@ -39,41 +37,42 @@ type Config struct {
 }
 
 func init() {
-	if len(EncodedConfigLookup) == 0 {
-		log.Fatalf("missing lookup, ensure bin is built with proper ldflag")
-	}
-
-	decoded, err := base64.StdEncoding.DecodeString(EncodedConfigLookup)
-	if err != nil {
-		log.Fatalf("decode error: %v", err)
-	}
-
-	err = yaml.Unmarshal([]byte(decoded), &GlobalLookups)
-	if err != nil {
-		log.Fatalf("error: %v", err)
+	config_provider := os.Getenv("CONFIG_PROVIDER")
+	switch config_provider {
+	case "github":
+		client := BuildGithubClientFromEnv()
+		CurrentProvider = GetGithubProviderFromPath(*client, os.Getenv("GITHUB_CONFIG_PATH"))
+	case "file":
+		CurrentProvider = FileConfigProvider{ Path: os.Getenv("CONFIG_FILE") }
+	default:
+		CurrentProvider = FileConfigProvider{ Path: "config.yaml" }
 	}
 }
 
+func LoadConfig() {
+	Current = CurrentProvider.GetConfig()
+}
+
 var CmdDebugLookup = &cobra.Command{
-	Use:   "lookup [project] [release]",
+	Use:   "config [project] [release]",
 	Short: "Shows information about a release",
 	Long: `
-		Prints information about the lookup config table
+		Prints information about the config config table
 	`,
 	Args: cobra.MinimumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
-			for project, releases := range GlobalLookups.Deployments {
+			for project, releases := range Current.Deployments {
 				for release, _ := range releases {
 					fmt.Println(fmt.Sprintf("/usr/bin/unhookd deploy %s %s", project, release))
 				}
 			}
 		} else if len(args) == 1 {
-			for release, releaseConfig := range GlobalLookups.Deployments[args[0]] {
+			for release, releaseConfig := range Current.Deployments[args[0]] {
 				fmt.Println(fmt.Sprintf("/usr/bin/unhookd deploy %s %s -- %s@%s", args[0], release, releaseConfig.Repo, releaseConfig.Branch))
 			}
 		} else if len(args) == 2 {
-			releaseConfig := GlobalLookups.Deployments[args[0]][args[1]]
+			releaseConfig := Current.Deployments[args[0]][args[1]]
 			fmt.Println(fmt.Sprintf("/usr/bin/unhookd deploy %s %s\nrepo: %s\nbranch: %s\ncluster: %s\nchart: %s", args[0], args[1], releaseConfig.Repo, releaseConfig.Branch, releaseConfig.Cluster, releaseConfig.Chart))
 			fmt.Println(fmt.Sprintf("%v", releaseConfig.Notifications))
 		}

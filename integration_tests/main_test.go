@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"github.com/unhookd/unctl/config"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -12,8 +13,11 @@ import (
 
 func TestCmdZeroTrustServerWithSha(t *testing.T) {
 	helm.Setup(false)
+	config.CurrentProvider = config.FileConfigProvider{ Path: "../config/testdata/config-test.yaml" }
+	config.LoadConfig()
+
 	endpoint := "https://local.unhookd.org.net:4443/zero-trust"
-	values := client.CreateValues("test", "test-deployment", "adb77bea1a1e80e8da839caa6818b7c56cc8e5b7", "true", "false")
+	values := client.CreateValues("test", "test-deployment", "8b862e527cf90c34a83f0b349bbb686bef33a2cb", "true", "false")
 
 	request, err := http.NewRequest("POST", endpoint, values)
 	if err != nil {
@@ -37,6 +41,9 @@ func TestCmdZeroTrustServerWithSha(t *testing.T) {
 
 func TestCmdZeroTrustServerNoSha(t *testing.T) {
 	helm.Setup(false)
+	config.CurrentProvider = config.FileConfigProvider{ Path: "../config/testdata/config-test.yaml" }
+	config.LoadConfig()
+
 	endpoint := "https://local.unhookd.org.net:4443/zero-trust"
 	values := client.CreateValues("test", "test-deployment", "", "true", "false")
 

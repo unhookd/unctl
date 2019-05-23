@@ -29,7 +29,7 @@ var CmdZeroTrustServer = &cobra.Command{
 	Use:   "zero-trust-server",
 	Short: "Runs unhookd in secure zero-trust model mode",
 	Long: `
-	  secure zero-trust model requires a known app to be present in a lookup, and performs additional parameter verification.
+	  secure zero-trust model requires a known app to be present in a config, and performs additional parameter verification.
 	`,
 	Args: cobra.MinimumNArgs(0),
 	Run: func(_ *cobra.Command, _ []string) {

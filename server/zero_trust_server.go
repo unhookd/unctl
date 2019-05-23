@@ -2,13 +2,12 @@ package server
 
 import (
 	"fmt"
+	"github.com/unhookd/unctl/config"
 	"net/http"
 	"time"
 
-	"github.com/unhookd/unctl/auth"
 	"github.com/unhookd/unctl/helm"
 	"github.com/unhookd/unctl/lib"
-	"github.com/unhookd/unctl/lookup"
 )
 
 func ZeroTrustServer(runHelm bool) *http.Server {
@@ -61,9 +60,9 @@ func ZeroTrustServerHandler(w http.ResponseWriter, request *http.Request) {
 
 	var effectiveRelease, effectiveNamespace, repo, branch, chart, version string
 
-	var notifications lookup.NotificationsLookup
+	var notifications config.NotificationsLookup
 
-	if lookedupProject, ok := lookup.GlobalLookups.Deployments[project]; ok {
+	if lookedupProject, ok := config.Current.Deployments[project]; ok {
 		if lookedupRelease, ok := lookedupProject[release]; ok {
 			effectiveRelease = lookedupRelease.Release
 			effectiveNamespace = lookedupRelease.Namespace
@@ -109,27 +108,27 @@ func ZeroTrustServerHandler(w http.ResponseWriter, request *http.Request) {
 	fmt.Println("Notifying communication channels")
 	if shouldNotify {
 		for _, notificationConfigured := range notifications {
-			lib.NotifyCommunicationChannel(notificationConfigured)
+			config.NotifyCommunicationChannel(notificationConfigured)
 		}
 	}
 }
 
 func GetShaToDeploy(repo string, branch string, desiredSha string) (sha string, err error) {
-	githubClient := auth.BuildGithubClient()
+	githubClient := config.BuildGithubClientFromEnv()
 
-	headSha, validationError := auth.GetHeadSha(repo, branch, githubClient)
+	headSha, validationError := config.GetHeadSha(repo, branch, githubClient)
 	if validationError != nil {
 		return "", validationError
 	}
 
 	if len(desiredSha) > 0 {
-		validationError = auth.ValidateShasMatch(headSha, desiredSha)
+		validationError = config.ValidateShasMatch(headSha, desiredSha)
 		if validationError != nil {
 			return "", validationError
 		}
 	}
 
-	validationError = auth.ValidateStatusChecks(repo, branch, headSha, githubClient)
+	validationError = config.ValidateStatusChecks(repo, branch, headSha, githubClient)
 	if validationError != nil {
 		return "", validationError
 	}

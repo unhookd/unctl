@@ -1,36 +1,36 @@
-package auth
+package config
 
 import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/google/go-github/github"
+	"github.com/unhookd/unctl/lib"
+	"golang.org/x/oauth2"
 	"os"
 	"regexp"
 	"strings"
-	"github.com/google/go-github/github"
-	"github.com/unhookd/unctl/lib"
-	"github.com/unhookd/unctl/lookup"
-	"golang.org/x/oauth2"
 )
 
 
-
-func BuildGithubClient() (client *github.Client) {
+func BuildGithubClient(accessToken string) (client *github.Client) {
 	ctx := context.Background()
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: accessToken},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+	client = github.NewClient(tc)
+	return client
+}
+
+func BuildGithubClientFromEnv() (client *github.Client) {
 	githubAccessToken := os.Getenv("GITHUB_ACCESS_TOKEN")
 
 	if githubAccessToken == "" {
 		panic(errors.New("No GITHUB_ACCESS_TOKEN env"))
 	}
 
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: githubAccessToken},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	client = github.NewClient(tc)
-
-	return client
+	return BuildGithubClient(githubAccessToken)
 }
 
 func ValidateShasMatch(headSha string, sha string) (err error) {
@@ -70,7 +70,7 @@ func ValidateStatusChecks(orgRepo, branch, headSha string, client *github.Client
 
 	var required_contexts []string
 	var ok bool
-	if required_contexts, ok = lookup.GlobalLookups.Contexts[orgRepo]; !ok {
+	if required_contexts, ok = Current.Contexts[orgRepo]; !ok {
 		return errors.New(fmt.Sprintf("Unable to locate required_contexts: %s", orgRepo))
 	}
 
