@@ -129,10 +129,10 @@ func GetShaToDeploy(repo string, branch string, desiredSha string) (sha string, 
 		}
 	}
 
-	validationError = auth.ValidateStatusChecks(repo, branch, headSha, githubClient)
-	if validationError != nil {
-		return "", validationError
-	}
+	//validationError = auth.ValidateStatusChecks(repo, branch, headSha, githubClient)
+	//if validationError != nil {
+	//	return "", validationError
+	//}
 
 	return headSha, nil
 }

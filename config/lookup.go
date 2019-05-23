@@ -6,7 +6,6 @@ import (
 )
 
 var GlobalLookups Config
-var EncodedConfigLookup string
 
 type EndpointsTable map[string]string
 
@@ -35,22 +34,10 @@ type Config struct {
 	Deployments DeploymentsTable
 }
 
-// Probably don't need this anymore
-//func init() {
-//	if len(EncodedConfigLookup) == 0 {
-//		log.Fatalf("missing config, ensure bin is built with proper ldflag")
-//	}
-//
-//	decoded, err := base64.StdEncoding.DecodeString(EncodedConfigLookup)
-//	if err != nil {
-//		log.Fatalf("decode error: %v", err)
-//	}
-//
-//	err = yaml.Unmarshal([]byte(decoded), &GlobalLookups)
-//	if err != nil {
-//		log.Fatalf("error: %v", err)
-//	}
-//}
+func LoadConfig() {
+	var fileConfigProvider = FileConfigProvider{ Path: "config.yaml" }
+	GlobalLookups = fileConfigProvider.GetConfig()
+}
 
 var CmdDebugLookup = &cobra.Command{
 	Use:   "config [project] [release]",

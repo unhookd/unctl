@@ -1,19 +1,18 @@
-package providers
+package config
 
 import (
-	"github.com/unhookd/unctl/config"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 )
 
-type File struct {
-	Path string
-	config config.Config
+type FileConfigProvider struct {
+	Path      string
+	config    Config
 	rawConfig string
 }
 
-func (provider File) GetConfig() config.Config {
+func (provider FileConfigProvider) GetConfig() Config {
 	dat, err := ioutil.ReadFile(provider.Path)
 	provider.rawConfig = string(dat)
 
@@ -28,8 +27,8 @@ func (provider File) GetConfig() config.Config {
 	return provider.unmarshalConfig()
 }
 
-func (provider File) unmarshalConfig() config.Config {
-	var config config.Config
+func (provider FileConfigProvider) unmarshalConfig() Config {
+	var config Config
 	err := yaml.Unmarshal([]byte(provider.rawConfig), &config)
 
 	if err != nil {

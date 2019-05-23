@@ -27,7 +27,7 @@ Goland is a Jetbrains IDE for Golang! If you've used Rubymine, you should feel r
 
 ## Running Unhookd
 ```
-go run -ldflags "-X github.com/unhookd/unctl/config.EncodedConfigLookup=$(cat zero-trust.yaml | base64)" main.go
+go run main.go
 ```
 
 You can also build the project with `go build` and get dependencies with `go get`

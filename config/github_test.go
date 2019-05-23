@@ -1,14 +1,14 @@
-package providers
+package config
 
 import (
 	"github.com/unhookd/unctl/auth"
 	"testing"
 )
 
-func TestGithubConfig(t *testing.T) {
+func TestGithubConfigProvider(t *testing.T) {
 	client := auth.BuildGithubClientFromEnv()
 
-	var configProvider = Github{
+	var configProvider = GithubConfigProvider{
 		Client: *client,
 		Owner: "unhookd",
 		Repo: "test-config-store",
