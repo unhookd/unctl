@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetGithubArgs(t *testing.T) {
-	config.CurrentProvider = config.FileConfigProvider{ Path: "../config/testdata/config-test.yaml" }
+	config.CurrentProvider = config.FileConfigProvider{Path: "../config/testdata/config-test.yaml"}
 	config.LoadConfig()
 
 	args := []string{"test", "test-deployment", "adb77bea1a1e80e8da839caa6818b7c56cc8e5b7"}
@@ -18,7 +18,7 @@ func TestGetGithubArgs(t *testing.T) {
 }
 
 func TestZeroTrustLookup(t *testing.T) {
-	config.CurrentProvider = config.FileConfigProvider{ Path: "../config/testdata/config-test.yaml" }
+	config.CurrentProvider = config.FileConfigProvider{Path: "../config/testdata/config-test.yaml"}
 	config.LoadConfig()
 
 	args := []string{"test", "test-deployment"}
