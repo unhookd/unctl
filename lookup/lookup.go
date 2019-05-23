@@ -6,7 +6,6 @@ import (
 )
 
 var GlobalLookups Config
-var EncodedConfigLookup string
 
 type EndpointsTable map[string]string
 
