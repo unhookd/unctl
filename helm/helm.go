@@ -7,10 +7,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/org/unhookd/lib"
+	"github.com/unhookd/unctl/lib"
 )
-
-//helmOut, shouldNotify, err := helm.HelmBinUpgradeInstall(release, chart, sha, string(values), shouldWait, shouldDryRun)
 
 var usrBinHelm string
 var helmCmdArgs []string
@@ -24,11 +22,7 @@ func HelmBinUpgradeInstall(release string, namespace string, chart string, versi
 		return nil, false, err
 	}
 
-	if version == "instastage" {
-		helmCmdArgs = []string{"upgrade", "--debug", "--install", release, "--namespace", namespace, chart, "-f", "-"}
-	} else {
-		helmCmdArgs = []string{"upgrade", "--debug", "--install", release, "--namespace", namespace, "--version", version, chart, "-f", "-"}
-	}
+	helmCmdArgs = []string{"upgrade", "--debug", "--install", release, "--namespace", namespace, "--version", version, chart, "-f", "-"}
 
 	if shouldWait {
 		helmCmdArgs = append(helmCmdArgs, "--wait", "--timeout", "600")
