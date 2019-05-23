@@ -13,7 +13,14 @@ import (
 
 func TestCmdZeroTrustServerWithSha(t *testing.T) {
 	helm.Setup(false)
-	config.CurrentProvider = config.FileConfigProvider{ Path: "../config/testdata/config-test.yaml" }
+
+	config.CurrentProvider = config.GithubConfigProvider{
+		Client: *config.BuildGithubClientFromEnv(),
+		Owner: "unhookd",
+		Repo: "test-config-store",
+		Ref: "master",
+		Path: "config-test.yaml",
+	}
 	config.LoadConfig()
 
 	endpoint := "https://local.unhookd.org.net:4443/zero-trust"
