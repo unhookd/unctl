@@ -64,16 +64,16 @@ var CmdDebugLookup = &cobra.Command{
 		if len(args) == 0 {
 			for project, releases := range Current.Deployments {
 				for release, _ := range releases {
-					fmt.Println(fmt.Sprintf("/usr/bin/unhookd deploy %s %s", project, release))
+					fmt.Println(fmt.Sprintf("/usr/bin/unctl deploy %s %s", project, release))
 				}
 			}
 		} else if len(args) == 1 {
 			for release, releaseConfig := range Current.Deployments[args[0]] {
-				fmt.Println(fmt.Sprintf("/usr/bin/unhookd deploy %s %s -- %s@%s", args[0], release, releaseConfig.Repo, releaseConfig.Branch))
+				fmt.Println(fmt.Sprintf("/usr/bin/unctl deploy %s %s -- %s@%s", args[0], release, releaseConfig.Repo, releaseConfig.Branch))
 			}
 		} else if len(args) == 2 {
 			releaseConfig := Current.Deployments[args[0]][args[1]]
-			fmt.Println(fmt.Sprintf("/usr/bin/unhookd deploy %s %s\nrepo: %s\nbranch: %s\ncluster: %s\nchart: %s", args[0], args[1], releaseConfig.Repo, releaseConfig.Branch, releaseConfig.Cluster, releaseConfig.Chart))
+			fmt.Println(fmt.Sprintf("/usr/bin/unctl deploy %s %s\nrepo: %s\nbranch: %s\ncluster: %s\nchart: %s", args[0], args[1], releaseConfig.Repo, releaseConfig.Branch, releaseConfig.Cluster, releaseConfig.Chart))
 			fmt.Println(fmt.Sprintf("%v", releaseConfig.Notifications))
 		}
 	},

@@ -16,7 +16,7 @@ func ZeroTrustServer(runHelm bool) *http.Server {
 	http.HandleFunc("/zero-trust", ZeroTrustServerHandler)
 	http.HandleFunc("/status", healthCheck)
 	listen := "0.0.0.0:8081"
-	fmt.Println("Starting unhookD zero-trust... Please standby", listen)
+	fmt.Println("Starting unctl zero-trust... Please standby", listen)
 
 	srv := &http.Server{
 		Addr:         listen,

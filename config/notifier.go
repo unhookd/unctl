@@ -23,7 +23,7 @@ func NotifyCommunicationChannel(notificationConfiguration NotificationsTable) {
 }
 
 func notifySlack(slack_api_url, channel, text string) (success bool, message, responseBody string) {
-	message = fmt.Sprintf(`{"channel": "%v", "username": "unhookd", "text": "%v", "icon_emoji": ":ops:"}`, channel, text)
+	message = fmt.Sprintf(`{"channel": "%v", "username": "unctl", "text": "%v", "icon_emoji": ":ops:"}`, channel, text)
 
 	values := url.Values{}
 	values.Add("payload", message)

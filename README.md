@@ -1,24 +1,24 @@
-# UnhookD
+# unctl
 
-Deploy your application without trusting your CI/CD system. UnhookD is a release controller designed for safe integration with external deployment triggers.
+Deploy your application without trusting your CI/CD system. unctl is a release controller designed for safe integration with external deployment triggers.
 
 [![CircleCI](https://circleci.com/gh/unhookd/unctl.svg?style=svg)](https://circleci.com/gh/unhookd/unctl)
 
 ## Usage
 ### Server commands
 ```
-/usr/bin/unhookd zero-trust-server # Runs unhookd in secure zero-trust model mode
+/usr/bin/unctl server
 ```
 
 ### Client commands
 
 ```
-/usr/bin/unhookd deploy [deployment] [release] [sha] [flags] # deploys an application with the given args
+/usr/bin/unctl deploy [deployment] [release] [sha] [flags] # deploys an application with the given args
 ```
 
-# Deploying an application with Unhookd Zero Trust
+# Deploying an application with unctl Zero Trust
 ## Overview
-The zero trust mode of Unhookd requires that an application be registered with Unhookd in order to deploy. This ensures that:
+The zero trust mode of unctl requires that an application be registered with unctl in order to deploy. This ensures that:
 
 - An application is explicitly authorized to be deployed
 - The application's configuration as specified by a `values.yaml` file has been code reviewed and checked in
@@ -27,9 +27,9 @@ The zero trust mode of Unhookd requires that an application be registered with U
 It's called `zero trust` because the intent is to ensure that there is a trail from application configuration, to source code change, to tests passing, to deploy.
 
 ## Prerequisites
-- All applications being deployed with Unhookd zero trust mode *must* have a configured umbrella chart. For more information on how to create and use an umbrella chart, see the [charts](https://github.com/org/charts/tree/master/README.md) readme.
+- All applications being deployed with unctl zero trust mode *must* have a configured umbrella chart. For more information on how to create and use an umbrella chart, see the [charts](https://github.com/org/charts/tree/master/README.md) readme.
 
-## Configuring an Unhookd deployed application
+## Configuring an unctl deployed application
 Deployments parameters are defined in the `lookup-config.yaml` in this repository. An application requires the following parameters:
 
 ```
@@ -64,9 +64,9 @@ kube-hello-world:
         text: "Deployed kube hello world for production yet again"
 ```
 
-## Configuring notifications for Unhookd
+## Configuring notifications for unctl
 
-Unhookd supports sending a notification to a given notification channel upon deploy. Currently only `slack` is supported.
+unctl supports sending a notification to a given notification channel upon deploy. Currently only `slack` is supported.
 
 ### Slack
 A Slack notification is configured like this:
@@ -82,24 +82,24 @@ Once configured a slack message will be sent on a successful deploy.
 
 ### Adding a deploy job
 
-A deploy job should make the correct request to Unhookd to kick off the deploy. This will only work if your application has been configured correctly in the `lookup-config.yaml`.
+A deploy job should make the correct request to unctl to kick off the deploy. This will only work if your application has been configured correctly in the `lookup-config.yaml`.
 
 A deploy job is pretty simple:
-- Set your docker image to be the latest sha of `unhookd`. Feel free to check another Unhookd configured repo to see what that looks like.
-- Run the `unhookd deploy` command with your `application` and `release` and the `sha` you are deploying. The sha comes from the Circle CI environment.
+- Set your docker image to be the latest sha of unctl. Feel free to check another unctl configured repo to see what that looks like.
+- Run the `unctl deploy` command with your `application` and `release` and the `sha` you are deploying. The sha comes from the Circle CI environment.
 
 A deploy step might look something like this:
 
 ```
   deploy-master:
     docker:
-      - image: 673102273038.dkr.ecr.us-west-2.amazonaws.com/unhookd:git-52da8b5d2f7b5d6dd6f997d45b6dbd04a021c250
+      - image: <my-org>/<my-app>:git-<SHA>
     steps:
       - run:
           name: deploy
           command: |
-            unhookd deploy kube-hello-world kube-hello-world-engineering "${CIRCLE_SHA1}"
+            unctl deploy kube-hello-world kube-hello-world-engineering "${SHA_TO_DEPLOY}"
 ```
 
 ## Developing
-See [DEVELOPING.md](./DEVELOPING.md) for more information on how to develop on Unhookd.
+See [DEVELOPING.md](./DEVELOPING.md) for more information on how to develop on unctl.

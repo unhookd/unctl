@@ -21,15 +21,15 @@ func buildValuesYaml(project string, sha string) ([]byte, error) {
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Server", "Unhookd")
+	w.Header().Set("Server", "unctl")
 	w.WriteHeader(200)
 }
 
 var CmdZeroTrustServer = &cobra.Command{
-	Use:   "zero-trust-server",
-	Short: "Runs unhookd in secure zero-trust model mode",
+	Use:   "server",
+	Short: "Runs the unctl server",
 	Long: `
-	  secure zero-trust model requires a known app to be present in a config, and performs additional parameter verification.
+	  Runs the unctl server, exposing an endpoint where deploys defined in the unctl server config can be triggered.
 	`,
 	Args: cobra.MinimumNArgs(0),
 	Run: func(_ *cobra.Command, _ []string) {

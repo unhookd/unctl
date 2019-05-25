@@ -15,7 +15,7 @@ func TestNotifySlack(t *testing.T) {
 
 	channel := "#ops-notes"
 	message := "foobar"
-	payload := fmt.Sprintf(`{"channel": "%v", "username": "unhookd", "text": "%v", "icon_emoji": ":ops:"}`, channel, message)
+	payload := fmt.Sprintf(`{"channel": "%v", "username": "unctl", "text": "%v", "icon_emoji": ":ops:"}`, channel, message)
 	sn, response, _ := notifySlack(ts.URL, channel, message)
 
 	if payload != response {
@@ -35,7 +35,7 @@ func TestNotifySlack_BadRequest(t *testing.T) {
 
 	channel := "#integrations-platform"
 	message := "foobar"
-	payload := fmt.Sprintf(`{"channel": "%v", "username": "unhookd", "text": "%v", "icon_emoji": ":ops:"}`, channel, message)
+	payload := fmt.Sprintf(`{"channel": "%v", "username": "unctl", "text": "%v", "icon_emoji": ":ops:"}`, channel, message)
 	sn, response, _ := notifySlack(ts.URL, channel, message)
 
 	if payload != response {

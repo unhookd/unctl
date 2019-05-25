@@ -84,7 +84,7 @@ func makeRequest(endpoint string, encodedValues *strings.Reader) (string, int) {
 	httpClient := &http.Client{}
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		log.Fatalf("Unable to send POST request to zero-trust-server: %v", err.Error())
+		log.Fatalf("Unable to send POST request to unctl server: %v", err.Error())
 	}
 
 	defer resp.Body.Close()

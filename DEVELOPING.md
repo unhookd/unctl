@@ -1,8 +1,8 @@
-# Developing on Unhookd
+# Developing on unctl
 
 - [Quickstart](#quick-start)
 - [Setting up your machine](#setting-up-your-machine)
-- [Running Unhookd](#running-unhookd)
+- [Running unctl](#running-unctl)
 - [Installing to a Cluster](#installing-to-a-cluster)
 
 ## Quick Start
@@ -25,7 +25,7 @@ brew upgrade golang
 #### Installing Goland
 Goland is a Jetbrains IDE for Golang! If you've used Rubymine, you should feel right at home
 
-## Running Unhookd
+## Running unctl
 ```
 go run main.go
 ```
