@@ -1,4 +1,4 @@
-FROM golang:1.11
+FROM golang:1.12.5
 
 ARG GITHUB_ACCESS_TOKEN
 WORKDIR /go/src/github.com/unhookd/unctl
