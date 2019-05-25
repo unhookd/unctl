@@ -11,7 +11,7 @@ import (
 	"github.com/unhookd/unctl/server"
 )
 
-func TestCmdZeroTrustServerWithSha(t *testing.T) {
+func TestCmdServerWithSha(t *testing.T) {
 	helm.Setup(false)
 
 	config.CurrentProvider = config.GithubConfigProvider{
@@ -46,7 +46,7 @@ func TestCmdZeroTrustServerWithSha(t *testing.T) {
 	t.Log(responseRecorder.Body.String())
 }
 
-func TestCmdZeroTrustServerNoSha(t *testing.T) {
+func TestCmdServerNoSha(t *testing.T) {
 	helm.Setup(false)
 	config.CurrentProvider = config.FileConfigProvider{Path: "../config/testdata/config-test.yaml"}
 	config.LoadConfig()

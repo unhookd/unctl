@@ -25,7 +25,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 }
 
-var CmdZeroTrustServer = &cobra.Command{
+var CmdServer = &cobra.Command{
 	Use:   "server",
 	Short: "Runs the unctl server",
 	Long: `
