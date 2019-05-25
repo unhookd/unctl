@@ -2,6 +2,8 @@
 
 Deploy your application without trusting your CI/CD system. UnhookD is a release controller designed for safe integration with external deployment triggers.
 
+[![CircleCI](https://circleci.com/gh/unhookd/unctl.svg?style=svg)](https://circleci.com/gh/unhookd/unctl)
+
 ## Usage
 ### Server commands
 ```
