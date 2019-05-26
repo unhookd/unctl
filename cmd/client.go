@@ -1,12 +1,21 @@
-package client
+package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/unhookd/unctl/client"
 )
 
 var version string
 var noWait bool
 var shouldDryRun bool
+
+func init() {
+	CmdDeploy.Flags().StringVarP(&version, "version", "v", "", "what version to deploy")
+	CmdDeploy.Flags().BoolVar(&noWait, "no-wait", false, "whether or not the command should wait for the deploy to finish")
+	CmdDeploy.Flags().BoolVar(&shouldDryRun, "dry-run", false, "noop deploy (dry-run)")
+
+	rootCmd.AddCommand(CmdDeploy)
+}
 
 var CmdDeploy = &cobra.Command{
 	Use:   "deploy [project] [release] [sha]",
@@ -18,12 +27,6 @@ var CmdDeploy = &cobra.Command{
 	`,
 	Args: cobra.MinimumNArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		ClientDeploy(args, noWait, shouldDryRun)
+		client.ClientDeploy(args, noWait, shouldDryRun)
 	},
-}
-
-func init() {
-	CmdDeploy.Flags().StringVarP(&version, "version", "v", "", "what version to deploy")
-	CmdDeploy.Flags().BoolVar(&noWait, "no-wait", false, "whether or not the command should wait for the deploy to finish")
-	CmdDeploy.Flags().BoolVar(&shouldDryRun, "dry-run", false, "noop deploy (dry-run)")
 }

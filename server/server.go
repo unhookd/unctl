@@ -3,12 +3,30 @@ package server
 import (
 	"fmt"
 	"github.com/unhookd/unctl/config"
+	"gopkg.in/yaml.v2"
 	"net/http"
 	"time"
 
 	"github.com/unhookd/unctl/helm"
 	"github.com/unhookd/unctl/lib"
 )
+
+const MaxFileSize = 100000
+
+func buildValuesYaml(project string, sha string) ([]byte, error) {
+	var data = map[string]map[string]map[string]string{}
+
+	data[project] = map[string]map[string]string{}
+	data[project]["image"] = map[string]string{}
+	data[project]["image"]["sha"] = sha
+
+	return yaml.Marshal(data)
+}
+
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Server", "unctl")
+	w.WriteHeader(200)
+}
 
 func ZeroTrustServer(runHelm bool) *http.Server {
 	helm.Setup(runHelm)

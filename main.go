@@ -1,17 +1,9 @@
 package main
 
 import (
-	"github.com/spf13/cobra"
-	"github.com/unhookd/unctl/client"
-	"github.com/unhookd/unctl/config"
-	"github.com/unhookd/unctl/server"
+	"github.com/unhookd/unctl/cmd"
 )
 
 func main() {
-	var rootCmd = &cobra.Command{Use: "unctl"}
-	//rootCmd.PersistentFlags().Bool("debug", false, "whether or not to show debug logic")
-	rootCmd.AddCommand(client.CmdDeploy)
-	rootCmd.AddCommand(server.CmdServer)
-	rootCmd.AddCommand(config.CmdDebugLookup)
-	rootCmd.Execute()
+	cmd.Execute()
 }
